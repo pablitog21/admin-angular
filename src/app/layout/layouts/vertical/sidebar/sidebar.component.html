@@ -1,55 +1,25 @@
-<!-- src/app/sidebar/sidebar.component.html -->
-<aside class="bg-gradient-to-br from-gray-800 to-gray-900 -translate-x-80 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
+<aside
+  class="bg-gradient-to-br from-gray-800 to-gray-900 -translate-x-80 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
   <div class="relative border-b border-white/20">
     <a class="flex items-center gap-4 py-6 px-8">
-      <h6 class="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-white">Material Tailwind Dashboard</h6>
+      <h6 class="text-white text-base font-semibold">
+        Material Tailwind Dashboard
+      </h6>
     </a>
   </div>
   <div class="m-4">
-    <ul class="mb-4 flex flex-col gap-1">
+    <ul class="flex flex-col gap-1">
       <li *ngFor="let link of links">
-        <a [routerLink]="link.routerLink">
-          <button
-            routerLinkActive="bg-gradient-to-tr from-blue-600 to-blue-400 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85]"
-            class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none 
-            disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10
-             active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize"
-            type="button">
-            <mat-icon>{{ link.icon }}</mat-icon>
-            <p class="font-sans text-base leading-relaxed text-inherit font-medium flex ">
-              {{ link.label }}
-            </p>
-          </button>
-        </a>
+        <button [routerLink]="link.routerLink"
+          routerLinkActive="bg-gradient-to-tr from-blue-600 to-blue-400 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-80"
+          class="font-bold text-xs pt-3 pb-0 rounded-lg text-white flex w-full gap-4 px-4 capitalize transition-all hover:bg-white/10 active:bg-white/30"
+          type="button">
+          <mat-icon>{{ link.icon }}</mat-icon>
+          <p class="text-base font-medium">
+            {{ link.label }}
+          </p>
+        </button>
       </li>
     </ul>
   </div>
 </aside>
-
-
-  <!-- <mat-sidenav-container class="h-[calc(100vh-32px)]">
-    <mat-sidenav mode="side" opened class="bg-gradient-to-br from-gray-800 to-gray-900 ml-4 rounded-xl" style="width: 280px;">
-      <mat-toolbar color="primary" class="border-b border-white/20">
-        <span class="flex items-center gap-4 py-6 px-8">
-          <h6 class="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-white">Material Tailwind Dashboard</h6>
-        </span>
-        <button mat-icon-button class="middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-white hover:bg-white/10 active:bg-white/30 absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden" (click)="sidenav.toggle()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-toolbar>
-      <div class="m-4">
-        <ul class="mb-4 flex flex-col gap-1">
-          <li>
-            <a routerLink="/dashboard" routerLinkActive="active-link">
-              <button mat-button class="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 flex w-full items-center gap-4 px-4 capitalize">
-                <mat-icon>home</mat-icon>
-                <span class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">dashboard</span>
-              </button>
-            </a>
-          </li>
-        
-        </ul>
-      </div>
-    </mat-sidenav>
-  </mat-sidenav-container> -->
-  

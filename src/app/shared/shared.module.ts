@@ -26,6 +26,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav
     TextFieldModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatSidenavContainer
+    MatSidenavContainer,
+    MatListModule
   ],
   exports: [
     CommonModule,
@@ -86,7 +88,8 @@ import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav
     TextFieldModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatSidenavContainer
+    MatSidenavContainer,
+    MatListModule
   ],
   providers: [
     // provideTransloco({
@@ -100,9 +103,4 @@ import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav
     // }),
   ],
 })
-export class SharedModule {
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon('close', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/close.svg'));
-    iconRegistry.addSvgIcon('home', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/home.svg'));
-  }
-}
+export class SharedModule{}
