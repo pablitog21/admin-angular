@@ -5,23 +5,23 @@ export const NAVIGATION = [
     label: 'dashboard'
   },
   {
-    routerLink: '/ventas',
-    icon: 'attach_money',
-    label: 'Ventas'
-  },
-  {
-    routerLink: '/usuarios',
+    routerLink: '/users',
     icon: 'people',
     label: 'Usuarios'
   },
-  {
-    routerLink: '/clientes',
-    icon: 'person_remove',
-    label: 'Clientes'
-  },
-  {
-    routerLink: '/parametros',
-    icon: 'settings',
-    label: 'Parametros'
-  },
+  // {
+  //   routerLink: '/ventas',
+  //   icon: 'attach_money',
+  //   label: 'Ventas'
+  // },
+  // {
+  //   routerLink: '/clientes',
+  //   icon: 'person_remove',
+  //   label: 'Clientes'
+  // },
+  // {
+  //   routerLink: '/parametros',
+  //   icon: 'settings',
+  //   label: 'Parametros'
+  // },
 ];
