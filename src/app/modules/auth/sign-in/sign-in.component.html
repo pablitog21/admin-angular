@@ -1,0 +1,41 @@
+<div class="bg-principal-200 min-h-screen flex justify-center items-center sm:bg-cover">
+    <div class="sm:bg-principal-600/50 p-8 rounded-2xl sm:shadow-lg text-center w-full sm:w-100 relative">
+        <form class="mt-10" [formGroup]="signInForm" #signInNgForm="ngForm">
+            <span class="text-principal-700 text-3xl font-bold">Login</span>
+
+
+            <!-- Email field -->
+             <mat-form-field class="w-full mt-6">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" id="email" class="text-white">
+                <mat-icon matPrefix class="text-principal-800 icon-size-5">person</mat-icon>
+                <mat-error *ngIf="signInForm.get('email')?.hasError('required')">
+                    El Email es requerido
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Password field -->
+            <mat-form-field class="w-full mt-1">
+                <mat-label>Password</mat-label>
+                <input id="password" matInput type="password" [formControlName]="'password'" #passwordField>
+                <button mat-icon-button type="button"
+                    (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                    matPrefix>
+                    <mat-icon class="text-principal-700 icon-size-5" *ngIf="passwordField.type === 'password'"> lock
+                    </mat-icon>
+                    <mat-icon class="text-principal-700 icon-size-5" *ngIf="passwordField.type === 'text'"> lock_open
+                    </mat-icon>
+                </button>
+            </mat-form-field>
+
+            <button (click)="signIn()" [ngClass]="{
+                'opacity-1': signInForm.valid,
+                'opacity-50': signInForm.invalid
+                 }" [disabled]="signInForm.invalid" class="bg-principal-700 text-white p-4 mt-4 rounded-full w-full">
+                Ingresar
+            </button>
+
+        </form>
+
+    </div>
+</div>
