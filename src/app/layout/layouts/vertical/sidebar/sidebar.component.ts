@@ -13,4 +13,5 @@ import { NAVIGATION } from '../../../../core/navigation/navigation.service';
 export class SidebarComponent {
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
   public links = NAVIGATION;
+  
 }

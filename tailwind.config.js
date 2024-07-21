@@ -8,17 +8,17 @@ const generatePalette = require(path.resolve(__dirname, ('src/tailwind/utils/gen
 const customPalettes = {
   brand: generatePalette('#df8d53'),
   principal: {
-    1000: '#F42222',
-    900: '#2e4e80',
-    800: '#df8d53',
-    700: '#765c7e',
-    600: '#9e768d',
-    500: '#ecb893',
-    400: '#9ea8c6',
-    300: "#bdb8cb",
-    200: '#8e807c',
-    100: '#4E3C3C',
-    0: '#FFFFFF'
+    50:  '#eff6ff',
+    100: '#dbeafe',
+    200: '#bfdbfe',
+    300: '#93c5fd',
+    400: '#60a5fa',
+    500: '#3b82f6',
+    600: '#2563eb',
+    700: '#1d4ed8',
+    800: '#1e40af',
+    900: '#1e3a8a',
+    950: '#172554',
   }
 };
 

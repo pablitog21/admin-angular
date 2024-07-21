@@ -1,5 +1,5 @@
 <aside
-  class="bg-gradient-to-br from-gray-800 to-gray-900 -translate-x-80 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
+  class="bg-principal-900 -translate-x-80 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
   <div class="relative border-b border-white/20">
     <a class="flex items-center gap-4 py-6 px-8">
       <h6 class="text-white text-base font-semibold">
@@ -11,8 +11,8 @@
     <ul class="flex flex-col gap-1">
       <li *ngFor="let link of links">
         <button [routerLink]="link.routerLink"
-          routerLinkActive="bg-gradient-to-tr from-green-400 to-blue-400 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-80"
-          class="font-bold text-xs pt-3 pb-0 rounded-lg text-white flex w-full gap-4 px-4 capitalize transition-all hover:bg-white/10 active:bg-white/30"
+          routerLinkActive="bg-principal-400 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-80"
+          class="font-bold text-xs pt-3 pb-0 rounded-lg text-white flex w-full gap-4 px-4 capitalize transition-all hover:bg-principal-300 active:bg-white/30"
           type="button">
           <mat-icon>{{ link.icon }}</mat-icon>
           <p class="text-base font-medium">
