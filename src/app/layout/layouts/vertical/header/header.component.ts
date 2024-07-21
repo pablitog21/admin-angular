@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { NAVIGATION } from '../../../../core/navigation/navigation.service';
 import { SharedModule } from '../../../../shared/shared.module';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ import { SharedModule } from '../../../../shared/shared.module';
 })
 export class HeaderComponent implements OnInit {
   currentLabel: string = 'Loading...';  // Valor predeterminado seguro
-  isSidebarOpen: boolean = false;  // Estado del sidebar
+
+  @Input() sidebar!: SidebarComponent;  // Inyección del SidebarComponent
 
   constructor(private router: Router) {}
 
@@ -22,7 +24,7 @@ export class HeaderComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.updateCurrentLabel(event.urlAfterRedirects);
+      this.updateCurrentLabel((event as NavigationEnd).urlAfterRedirects);
     });
   }
 
@@ -31,7 +33,11 @@ export class HeaderComponent implements OnInit {
     this.currentLabel = currentRoute ? currentRoute.label : 'Unknown';
   }
 
-  logout(){
+  logout() {
     this.router.navigateByUrl('/sign-in');
+  }
+
+  toggleSidebar() {
+    this.sidebar.toggle();
   }
 }
