@@ -2,7 +2,7 @@ export const NAVIGATION = [
   {
     routerLink: '/dashboard',
     icon: 'home',
-    label: 'dashboard'
+    label: 'Dashboard'
   },
   {
     routerLink: '/users',
