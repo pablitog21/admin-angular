@@ -7,7 +7,7 @@
             <!-- Email field -->
              <mat-form-field class="w-full mt-6">
                 <mat-label>Email</mat-label>
-                <input matInput formControlName="email" id="email" class="text-white">
+                <input matInput formControlName="email" id="email" >
                 <mat-icon matPrefix class="text-principal-800 icon-size-5">person</mat-icon>
                 <mat-error *ngIf="signInForm.get('email')?.hasError('required')">
                     El Email es requerido

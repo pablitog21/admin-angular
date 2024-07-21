@@ -6,19 +6,19 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const generatePalette = require(path.resolve(__dirname, ('src/tailwind/utils/generate-palette')));
 
 const customPalettes = {
-  brand: generatePalette('#df8d53'),
+  brand: generatePalette('#3b82f6'),
   principal: {
-    50:  '#eff6ff',
-    100: '#dbeafe',
-    200: '#bfdbfe',
-    300: '#93c5fd',
-    400: '#60a5fa',
-    500: '#3b82f6',
-    600: '#2563eb',
-    700: '#1d4ed8',
-    800: '#1e40af',
+    1000: '#172554',
     900: '#1e3a8a',
-    950: '#172554',
+    800: '#1e40af',
+    700: '#1d4ed8',
+    600: '#2563eb',
+    500: '#3b82f6',
+    400: '#60a5fa',
+    300: '#93c5fd',
+    200: '#bfdbfe',
+    100: '#dbeafe',
+    0:  '#eff6ff',
   }
 };
 
@@ -114,7 +114,7 @@ module.exports = {
       sm: '600px',
       md: '960px',
       lg: '1280px',
-      xl: '1440px'
+      xl: '1320px'
     },
     extend: {
       animation: {
