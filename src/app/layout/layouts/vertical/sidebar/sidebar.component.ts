@@ -13,5 +13,12 @@ import { NAVIGATION } from '../../../../core/navigation/navigation.service';
 export class SidebarComponent {
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
   public links = NAVIGATION;
-  
+  public isOpen: boolean = false;
+
+  toggle(): void {
+    this.isOpen = !this.isOpen;
+    if (this.sidenav) {
+      this.sidenav.toggle();
+    }
+  }
 }

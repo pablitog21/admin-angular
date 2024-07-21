@@ -1,6 +1,11 @@
 <div class="flex justify-between items-center bg-blue-900 p-2 rounded-md">
+  <button class="relative grid w-10 h-10 text-xs text-gray-100 transition-all rounded-lg hover:bg-blue-600 active:bg-blue-700" type="button" (click)="toggleSidebar()">
+    <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
+      <mat-icon>menu</mat-icon>
+    </span>
+  </button>
   <h6 class="text-base font-semibold text-gray-100">{{ currentLabel }}</h6>
-  <a >
+  <a>
     <button class="relative grid w-10 h-10 text-xs text-gray-100 transition-all rounded-lg hover:bg-blue-600 active:bg-blue-700" type="button" (click)="logout()">
       <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
         <mat-icon>logout</mat-icon>
