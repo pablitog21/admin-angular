@@ -18,7 +18,7 @@ export class SidebarComponent {
   toggle(): void {
     this.isOpen = !this.isOpen;
     if (this.sidenav) {
-      this.sidenav.toggle();
+      this.sidenav.toggle(); // Alterna la visibilidad del sidenav
     }
   }
 }

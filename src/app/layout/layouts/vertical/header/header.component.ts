@@ -38,6 +38,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleSidebar() {
-    this.sidebar.toggle();
+    this.sidebar.toggle(); // Alterna la visibilidad del sidenav
   }
 }
