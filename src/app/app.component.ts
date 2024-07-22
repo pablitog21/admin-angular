@@ -7,8 +7,7 @@ import { SidebarComponent } from './layout/layouts/vertical/sidebar/sidebar.comp
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = 'admin-template';

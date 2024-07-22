@@ -1,27 +1,20 @@
 # AdminTemplate
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
+## Descripción
 
-## Development server
+Este proyecto es una aplicación web desarrollada con Angular que utiliza Tailwind CSS, Transloco y Angular Material. La aplicación está diseñada para ser responsiva y proporcionar una interfaz de usuario moderna y atractiva.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Tecnologías Utilizadas
 
-## Code scaffolding
+- **Angular**: Un framework para construir aplicaciones web dinámicas y de una sola página.
+- **Tailwind CSS**: Un framework CSS de utilidad que permite diseñar de manera rápida y eficiente.
+- **Transloco**: Una biblioteca de internacionalización para Angular que facilita la gestión de múltiples idiomas en la aplicación.
+- **Angular Material**: Un conjunto de componentes UI preconstruidos que siguen las directrices de Material Design.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Instalación
 
-## Build
+1. **Clonar el repositorio**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+   ```bash
+   git clone https://github.com/tu_usuario/tu_proyecto.git
+   cd tu_proyecto
