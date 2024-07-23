@@ -1,45 +1,79 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { User } from '../../layout/layouts/user/user';
+import { environment } from '../../../environments/environment';
+import { UserService } from '../user/user.service';
+import { AuthUtils } from './auth.utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api'; // URL del backend
-  private authSubject = new BehaviorSubject<boolean>(false); // Estado de autenticación
+  private authenticated: boolean = false;
 
-  constructor(private http: HttpClient) {
-    this.checkAuthentication();
+  constructor(private httpClient: HttpClient,
+    private userService: UserService
+  ) { }
+
+  set accessToken(token: string) {
+    localStorage.setItem('token', token)
   }
 
-  // Observable para acceder al estado de autenticación
-  get isAuthenticated$(): Observable<boolean> {
-    return this.authSubject.asObservable();
+  get accessToken(): string {
+    return localStorage.getItem('token') || '';
   }
 
-  // Método para autenticar al usuario
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
-      tap(response => {
-        if (response.token) {
-          localStorage.setItem('authToken', response.token); // Guardar token en localStorage
-          this.authSubject.next(true); // Actualizar estado de autenticación
+
+  signIn(user: User): Observable<any> {
+    return this.httpClient.post<any>(`${environment.apiUrl}/auth/login`, user)
+      .pipe(
+        map((user: any) => {
+          this.authenticated = true;
+          this.accessToken = user.token;
+
+          return user
+        })
+      )
+  }
+
+  signInUsingToken(): Observable<any> {
+    return this.httpClient.post('api/auth/sign-in-with-token', {
+      accessToken: this.accessToken
+    }).pipe(
+      catchError(() =>
+
+        of(false)
+      ),
+      switchMap((response: any) => {
+        if (response.accessToken) {
+          this.accessToken = response.accessToken;
         }
+
+        this.authenticated = true;
+
+        this.userService.user = response.user;
+
+        return of(true);
       })
     );
   }
 
-  // Método para cerrar sesión
-  logout(): void {
-    localStorage.removeItem('authToken'); // Eliminar token de localStorage
-    this.authSubject.next(false); // Actualizar estado de autenticación
+  check(): Observable<boolean> {
+    if (this.authenticated) {
+      return of(true);
+    }
+
+    if (!this.accessToken) {
+      return of(false);
+    }
+
+    if (AuthUtils.isTokenExpired(this.accessToken)) {
+      return of(false);
+    }
+
+    return this.signInUsingToken();
   }
 
-  // Método para verificar si el usuario está autenticado al iniciar la aplicación
-  private checkAuthentication(): void {
-    const token = localStorage.getItem('authToken');
-    this.authSubject.next(!!token); // Actualizar estado de autenticación
-  }
 }
