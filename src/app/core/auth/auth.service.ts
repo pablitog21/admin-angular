@@ -1,45 +1,37 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { User } from '../../layout/layouts/user/user';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api'; // URL del backend
-  private authSubject = new BehaviorSubject<boolean>(false); // Estado de autenticación
+  private authenticated: boolean = false;
 
-  constructor(private http: HttpClient) {
-    this.checkAuthentication();
+  constructor(private httpClient: HttpClient) { }
+
+  set accessToken(token: string){
+    localStorage.setItem('token', token)
   }
 
-  // Observable para acceder al estado de autenticación
-  get isAuthenticated$(): Observable<boolean> {
-    return this.authSubject.asObservable();
+  get accessToken(): string{
+    return localStorage.getItem('token') || '';
   }
 
-  // Método para autenticar al usuario
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
-      tap(response => {
-        if (response.token) {
-          localStorage.setItem('authToken', response.token); // Guardar token en localStorage
-          this.authSubject.next(true); // Actualizar estado de autenticación
-        }
-      })
-    );
-  }
 
-  // Método para cerrar sesión
-  logout(): void {
-    localStorage.removeItem('authToken'); // Eliminar token de localStorage
-    this.authSubject.next(false); // Actualizar estado de autenticación
-  }
+signIn(user: User): Observable<any> {
+    return this.httpClient.post<any>(`${environment.apiUrl}/auth/login`, user)
+      .pipe(
+        map((user: any) => {
+          this.authenticated = true;
+          this.accessToken = user.token;
 
-  // Método para verificar si el usuario está autenticado al iniciar la aplicación
-  private checkAuthentication(): void {
-    const token = localStorage.getItem('authToken');
-    this.authSubject.next(!!token); // Actualizar estado de autenticación
+          return user
+        })
+      )
   }
+  
 }
