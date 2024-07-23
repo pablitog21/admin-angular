@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { User } from '../../layout/layouts/user/user';
 import { environment } from '../../../environments/environment';
 
@@ -36,7 +36,7 @@ signIn(user: User): Observable<any> {
 
   signInUsingToken(): Observable<any> {
         // Sign in using the token
-        return this._httpClient.post('api/auth/sign-in-with-token', {
+        return this.httpClient.post('api/auth/sign-in-with-token', {
             accessToken: this.accessToken
         }).pipe(
             catchError(() =>
@@ -58,7 +58,7 @@ signIn(user: User): Observable<any> {
                 }
 
                 // Set the authenticated flag to true
-                this._authenticated = true;
+                this.authenticated = true;
 
                 // Store the user on the user service
                 this._userService.user = response.user;
@@ -71,7 +71,7 @@ signIn(user: User): Observable<any> {
 
    check(): Observable<boolean> {
         // Check if the user is logged in
-        if (this._authenticated) {
+        if (this.authenticated) {
             return of(true);
         }
 
