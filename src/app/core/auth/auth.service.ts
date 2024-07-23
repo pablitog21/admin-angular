@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { User } from '../../layout/layouts/user/user';
 import { environment } from '../../../environments/environment';
+import { UserService } from '../user/user.service';
+import { AuthUtils } from './auth.utils';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +13,20 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private authenticated: boolean = false;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private userService: UserService
+  ) { }
 
-  set accessToken(token: string){
+  set accessToken(token: string) {
     localStorage.setItem('token', token)
   }
 
-  get accessToken(): string{
+  get accessToken(): string {
     return localStorage.getItem('token') || '';
   }
 
 
-signIn(user: User): Observable<any> {
+  signIn(user: User): Observable<any> {
     return this.httpClient.post<any>(`${environment.apiUrl}/auth/login`, user)
       .pipe(
         map((user: any) => {
@@ -35,58 +39,41 @@ signIn(user: User): Observable<any> {
   }
 
   signInUsingToken(): Observable<any> {
-        // Sign in using the token
-        return this.httpClient.post('api/auth/sign-in-with-token', {
-            accessToken: this.accessToken
-        }).pipe(
-            catchError(() =>
+    return this.httpClient.post('api/auth/sign-in-with-token', {
+      accessToken: this.accessToken
+    }).pipe(
+      catchError(() =>
 
-                // Return false
-                of(false)
-            ),
-            switchMap((response: any) => {
+        of(false)
+      ),
+      switchMap((response: any) => {
+        if (response.accessToken) {
+          this.accessToken = response.accessToken;
+        }
 
-                // Replace the access token with the new one if it's available on
-                // the response object.
-                //
-                // This is an added optional step for better security. Once you sign
-                // in using the token, you should generate a new one on the server
-                // side and attach it to the response object. Then the following
-                // piece of code can replace the token with the refreshed one.
-                if (response.accessToken) {
-                    this.accessToken = response.accessToken;
-                }
+        this.authenticated = true;
 
-                // Set the authenticated flag to true
-                this.authenticated = true;
+        this.userService.user = response.user;
 
-                // Store the user on the user service
-                this._userService.user = response.user;
+        return of(true);
+      })
+    );
+  }
 
-                // Return true
-                return of(true);
-            })
-        );
+  check(): Observable<boolean> {
+    if (this.authenticated) {
+      return of(true);
     }
 
-   check(): Observable<boolean> {
-        // Check if the user is logged in
-        if (this.authenticated) {
-            return of(true);
-        }
-
-        // Check the access token availability
-        if (!this.accessToken) {
-            return of(false);
-        }
-
-        // Check the access token expire date
-        if (AuthUtils.isTokenExpired(this.accessToken)) {
-            return of(false);
-        }
-
-        // If the access token exists and it didn't expire, sign in using it
-        return this.signInUsingToken();
+    if (!this.accessToken) {
+      return of(false);
     }
-  
+
+    if (AuthUtils.isTokenExpired(this.accessToken)) {
+      return of(false);
+    }
+
+    return this.signInUsingToken();
+  }
+
 }

@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { SignInComponent } from './modules/auth/sign-in/sign-in.component';
+import { NoAuthGuard } from './core/auth/guards/noAuth.guard';
 export const routes: Routes = [
     {
         path: 'sign-in',
-        // canActivate: [NotAuthGuard], // Permite acceso sin autenticación
+        // canActivate: [NoAuthGuard], // Permite acceso sin autenticación
         component: SignInComponent,
     },
     {

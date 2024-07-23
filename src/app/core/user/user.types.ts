@@ -1,5 +1,3 @@
-import { SsoApplication } from "app/domain/sso-application";
-
 export interface User {
     userId?: number;
     username?: string;
@@ -14,6 +12,5 @@ export interface User {
     modificationDate?: Date;
     avatar?: string;
     ssoToken: string;
-    applicationDTOs?: SsoApplication[];
     
 }
