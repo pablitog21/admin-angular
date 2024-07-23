@@ -27,8 +27,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { TranslocoHttpLoader } from '../transloco-loader';
-import { TranslocoModule, provideTransloco } from '@ngneat/transloco';
 
 @NgModule({
   imports: [
@@ -61,7 +59,6 @@ import { TranslocoModule, provideTransloco } from '@ngneat/transloco';
     MatSidenavModule,
     MatSidenavContainer,
     MatListModule,
-    TranslocoModule
   ],
   exports: [
     CommonModule,
@@ -93,18 +90,7 @@ import { TranslocoModule, provideTransloco } from '@ngneat/transloco';
     MatSidenavModule,
     MatSidenavContainer,
     MatListModule,
-    TranslocoModule
   ],
-  providers: [
-    provideTransloco({
-      config: {
-        availableLangs: ['en', 'es'],
-        defaultLang: 'es',
-        reRenderOnLangChange: true,
-        prodMode: !isDevMode(),
-      },
-      loader: TranslocoHttpLoader
-    }),
-  ],
+  
 })
 export class SharedModule{}
