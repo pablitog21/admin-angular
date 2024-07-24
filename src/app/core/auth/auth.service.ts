@@ -26,14 +26,14 @@ export class AuthService {
   }
 
 
-  signIn(user: User): Observable<any> {
-    return this.httpClient.post<any>(`${environment.apiUrl}/auth/login`, user)
+  signIn(username: User): Observable<any> {
+    return this.httpClient.post<any>(`${environment.apiUrl}/api/v1/auth/login`, username)
       .pipe(
-        map((user: any) => {
+        map((username: any) => {
           this.authenticated = true;
-          this.accessToken = user.token;
+          this.accessToken = username.token;
 
-          return user
+          return username
         })
       )
   }

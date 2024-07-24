@@ -27,6 +27,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../core/auth/auth.service';
 
 @NgModule({
   imports: [
@@ -59,6 +61,7 @@ import { MatListModule } from '@angular/material/list';
     MatSidenavModule,
     MatSidenavContainer,
     MatListModule,
+    HttpClientModule
   ],
   exports: [
     CommonModule,
@@ -90,7 +93,9 @@ import { MatListModule } from '@angular/material/list';
     MatSidenavModule,
     MatSidenavContainer,
     MatListModule,
+    HttpClientModule
   ],
+  providers: [AuthService],
   
 })
 export class SharedModule{}
