@@ -33,11 +33,17 @@ export class HeaderComponent implements OnInit {
     this.currentLabel = currentRoute ? currentRoute.label : 'Unknown';
   }
 
-  logout() {
-    this.router.navigateByUrl('/sign-in');
-  }
-
+  
   toggleSidebar() {
     this.sidebar.toggle(); // Alterna la visibilidad del sidenav
   }
+
+  logout() {
+    // Clear all items from localStorage
+    localStorage.clear();
+  
+    // Navigate to the sign-in page
+    this.router.navigate(['/sign-in']);
+  }
+  
 }
