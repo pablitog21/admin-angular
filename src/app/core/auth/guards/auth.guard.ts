@@ -1,35 +1,31 @@
 import { Injectable } from '@angular/core';
-import { CanMatch, Route, Router, UrlSegment, UrlTree } from '@angular/router';
-import { Observable, of, switchMap } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class AuthGuard implements CanMatch {
-    constructor(
-        private _authService: AuthService,
-        private _router: Router
-    ) {
+export class AuthGuard implements CanActivate {
+
+  // The constructor injects the Router service, which allows for navigation
+  constructor(private router: Router) { }
+
+  // The canActivate method is called to determine if a route can be activated
+  canActivate(
+    route: ActivatedRouteSnapshot,      // The route that is being accessed
+    state: RouterStateSnapshot          // The current state of the router
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+    // Check if the code is running in a browser environment and if the 'username' item exists in localStorage
+    if (typeof window !== 'undefined' && localStorage.getItem('username')) {
+      // If the user is authenticated (i.e., 'username' exists in localStorage), allow access to the route
+      return true;
+    } else {
+      // If the user is not authenticated, navigate to the 'login' route
+      this.router.navigate(['sign-in']);
+      // Prevent access to the route
+      return false;
     }
-
-    canMatch(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        return this._check(segments);
-    }
-
-    private _check(segments: UrlSegment[]): Observable<boolean | UrlTree> {
-        return this._authService.check().pipe(
-            switchMap((authenticated) => {
-
-                if (!authenticated) {
-                    const redirectURL = `/${segments.join('/')}`;
-                    const urlTree = this._router.parseUrl(`sign-in?redirectURL=${redirectURL}`);
-
-                    return of(urlTree);
-                }
-
-                return of(true);
-            })
-        );
-    }
+  }
 }
+
