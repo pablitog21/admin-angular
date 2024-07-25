@@ -16,9 +16,15 @@ export const routes: Routes = [
     redirectTo: 'dashboard'
   },
   {
-    path: 'sign-in',
-    canActivate: [NoAuthGuard], // Permite acceso sin autenticación
-    component: SignInComponent,
+    path: '',
+    canActivate: [NoAuthGuard],
+    children: [
+      {
+        path: 'sign-in',
+        component: SignInComponent,
+      }
+
+    ]
   },
   {
     path: '',
@@ -35,7 +41,5 @@ export const routes: Routes = [
       }
     ]
   }
-
-
 
 ];
