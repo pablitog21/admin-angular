@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../../core/user/user.service';
@@ -11,7 +11,7 @@ import { UserService } from '../../../core/user/user.service';
   standalone: true,
   imports: [SharedModule, HttpClientModule],
   templateUrl: './sign-in.component.html',
-  providers: [AuthService, UserService]
+  providers: [AuthService, UserService, RouterLink]
 })
 export class SignInComponent implements OnInit {
   @ViewChild('signInNgForm') signInNgForm!: NgForm;
@@ -60,9 +60,9 @@ export class SignInComponent implements OnInit {
       .subscribe(
         (data) => {
           localStorage.setItem('username', data.username);
-          const redirectURL = this.activatedRouter.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+          const redirectURL = this.activatedRouter.snapshot.queryParamMap.get('redirectURL') || '/dashboard';
 
-          this._router.navigateByUrl(redirectURL)
+          this._router.navigateByUrl(redirectURL);
         },
         (error) => {
           // Re-enable the form
@@ -81,5 +81,6 @@ export class SignInComponent implements OnInit {
         }
       );
   }
+
 
 }

@@ -1,25 +1,30 @@
 import { Injectable } from '@angular/core';
-import { CanMatch, Route, Router, UrlSegment, UrlTree } from '@angular/router';
-import { Observable, of, switchMap } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class NoAuthGuard implements CanMatch {
+export class NoAuthGuard implements CanActivate {
 
-    constructor(
-        private _authService: AuthService,
-        private _router: Router
-    ) { }
+  // The constructor injects the Router service, which allows for navigation
+  constructor(private router: Router) { }
 
-    canMatch(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        return this._check();
+  // The canActivate method is called to determine if a route can be activated
+  canActivate(
+    route: ActivatedRouteSnapshot,      // The route that is being accessed
+    state: RouterStateSnapshot          // The current state of the router
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+    // Check if the code is running in a browser environment and if the 'ingresado' item exists in localStorage
+    if (typeof window !== 'undefined' && localStorage.getItem('ingresado')) {
+      // If the user is authenticated (i.e., 'ingresado' exists in localStorage), navigate to the 'menu/inicio' route
+      this.router.navigate(['dashboard']);
+      // Prevent access to the route since the user is already authenticated
+      return false;
+    } else {
+      // If the user is not authenticated, allow access to the route
+      return true;
     }
-
-    private _check(): Observable<boolean> {
-        return this._authService.check().pipe(
-            switchMap((authenticated) => of(!authenticated))
-        );
-    }
+  }
 }
