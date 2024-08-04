@@ -1,7 +1,9 @@
 import { Component, ViewChild, ElementRef, HostListener, AfterViewInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SharedModule } from '../../../../shared/shared.module';
 import { NAVIGATION } from '../../../../core/navigation/navigation.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,6 +15,8 @@ export class SidebarComponent implements AfterViewInit {
   @ViewChild('sidebar') sidebar!: ElementRef;
   public links = NAVIGATION;
   public isOpen: boolean = false;
+
+  constructor(private router: Router) {}
 
   toggle(): void {
     this.isOpen = !this.isOpen;
@@ -27,6 +31,13 @@ export class SidebarComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Este método se asegura de que el elemento sidebar esté disponible antes de usarlo
+    // Escucha los cambios en la ruta
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      if (this.isOpen) {
+        this.isOpen = false; // Cierra el sidebar cuando la ruta cambia
+      }
+    });
   }
 }
