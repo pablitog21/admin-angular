@@ -33,7 +33,6 @@ export class HeaderComponent implements OnInit {
     this.currentLabel = currentRoute ? currentRoute.label : 'Unknown';
   }
 
-  
   toggleSidebar() {
     this.sidebar.toggle(); // Alterna la visibilidad del sidenav
   }
@@ -45,5 +44,4 @@ export class HeaderComponent implements OnInit {
     // Navigate to the sign-in page
     this.router.navigate(['/sign-in']);
   }
-  
 }

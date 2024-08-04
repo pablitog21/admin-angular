@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, AfterViewInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SharedModule } from '../../../../shared/shared.module';
-import { MatSidenav } from '@angular/material/sidenav';
 import { NAVIGATION } from '../../../../core/navigation/navigation.service';
 
 @Component({
@@ -10,15 +9,24 @@ import { NAVIGATION } from '../../../../core/navigation/navigation.service';
   imports: [RouterLink, RouterLinkActive, SharedModule],
   templateUrl: './sidebar.component.html'
 })
-export class SidebarComponent {
-  @ViewChild(MatSidenav) sidenav!: MatSidenav;
+export class SidebarComponent implements AfterViewInit {
+  @ViewChild('sidebar') sidebar!: ElementRef;
   public links = NAVIGATION;
   public isOpen: boolean = false;
 
   toggle(): void {
     this.isOpen = !this.isOpen;
-    if (this.sidenav) {
-      this.sidenav.toggle(); // Alterna la visibilidad del sidenav
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event): void {
+    const headerElement = document.querySelector('app-header');
+    if (this.isOpen && !this.sidebar.nativeElement.contains(event.target) && !headerElement?.contains(event.target as Node)) {
+      this.isOpen = false;
     }
+  }
+
+  ngAfterViewInit() {
+    // Este método se asegura de que el elemento sidebar esté disponible antes de usarlo
   }
 }
