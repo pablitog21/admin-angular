@@ -1,12 +1,12 @@
-<div class="bg-principal-200 min-h-screen flex justify-center items-center sm:bg-cover">
+<div *transloco="let t" class="bg-principal-200 min-h-screen flex justify-center items-center sm:bg-cover">
     <div class="sm:bg-principal-600/50 p-8 rounded-2xl sm:shadow-lg text-center w-full sm:w-100 relative">
         <form class="mt-10" [formGroup]="signInForm" #signInNgForm="ngForm">
-            <span class="text-principal-700 text-3xl font-bold">Login</span>
+            <span class="text-principal-800 text-3xl font-bold">{{ t('lbl.auth.signInText') }}</span>
 
             <!-- Email field -->
-             <mat-form-field class="w-full mt-6">
-                <mat-label>Email</mat-label>
-                <input matInput formControlName="email" id="email" >
+            <mat-form-field class="w-full mt-6">
+                <mat-label>{{ t('lbl.auth.email') }}</mat-label>
+                <input matInput formControlName="email" id="email">
                 <mat-icon matPrefix class="text-principal-800 icon-size-5">person</mat-icon>
                 <mat-error *ngIf="signInForm.get('email')?.hasError('required')">
                     El Email es requerido
@@ -15,7 +15,7 @@
 
             <!-- Password field -->
             <mat-form-field class="w-full mt-1">
-                <mat-label>Password</mat-label>
+                <mat-label>{{ t('lbl.auth.password') }}</mat-label>
                 <input id="password" matInput type="password" [formControlName]="'password'" #passwordField>
                 <button mat-icon-button type="button"
                     (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
@@ -27,12 +27,25 @@
                 </button>
             </mat-form-field>
 
+            <!-- Actions -->
+            <!-- <button class="inline-flex justify-end w-full text-principal-800 hover:underline"
+                (click)="forgotPassword()">
+                {{ t('lbl.auth.forgotPassword') }}
+            </button> -->
+
             <button (click)="signIn()" [ngClass]="{
                 'opacity-1': signInForm.valid,
                 'opacity-50': signInForm.invalid
                  }" [disabled]="signInForm.invalid" class="bg-principal-700 text-white p-4 mt-4 rounded-full w-full">
-                Ingresar
+                {{ t('lbl.auth.getInto') }}
             </button>
+
+            <!-- <button (click)="checkIn()" [ngClass]="{
+                'opacity-1': signInForm.valid,
+                'opacity-50': signInForm.invalid
+                 }" [disabled]="signInForm.invalid" class="bg-principal-800 text-white p-4 mt-4 rounded-full w-full">
+                {{ t('lbl.auth.checkIn') }}
+            </button> -->
 
         </form>
     </div>

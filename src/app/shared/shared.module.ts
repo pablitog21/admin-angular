@@ -29,6 +29,8 @@ import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../core/auth/auth.service';
+import { TranslocoHttpLoader } from '../transloco-loader';
+import { provideTransloco, TranslocoModule } from '@jsverse/transloco';
 
 @NgModule({
   imports: [
@@ -61,6 +63,7 @@ import { AuthService } from '../core/auth/auth.service';
     MatSidenavModule,
     MatSidenavContainer,
     MatListModule,
+    TranslocoModule,
     HttpClientModule
   ],
   exports: [
@@ -93,9 +96,13 @@ import { AuthService } from '../core/auth/auth.service';
     MatSidenavModule,
     MatSidenavContainer,
     MatListModule,
+    TranslocoModule,
     HttpClientModule
+    
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+  ],
   
 })
 export class SharedModule{}

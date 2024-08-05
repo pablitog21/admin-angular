@@ -1,0 +1,21 @@
+{
+    "lbl": {
+        "auth": {
+            "signInText": "Sign In",
+            "email": "Email",
+            "password": "Password",
+            "getInto": "Log In",
+            "checkIn": "Sign Up",
+            "forgotPassword": "Forgot My Password"
+        }
+    },
+    "msg": {
+        "auth": {
+            
+        },
+        "validator": {
+
+        }
+
+    }
+}
