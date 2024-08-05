@@ -5,11 +5,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../../core/user/user.service';
+import { CommonModule } from '@angular/common';
 
-@Component({
+@Component({ 
   selector: 'app-sign-in',
   standalone: true,
-  imports: [SharedModule, HttpClientModule],
+  imports: [CommonModule, SharedModule, HttpClientModule],
   templateUrl: './sign-in.component.html',
   providers: [AuthService, UserService, RouterLink]
 })
@@ -27,7 +28,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.signInForm = this._formBuilder.group({
-      email: ['',
+      email: ['administrador@gmail.com',
         [
           Validators.compose([
             Validators.required,
@@ -37,7 +38,7 @@ export class SignInComponent implements OnInit {
           ])
         ],
       ],
-      password: ['',
+      password: ['123456',
         [
           Validators.compose([
             Validators.required,
@@ -82,5 +83,12 @@ export class SignInComponent implements OnInit {
       );
   }
 
+  // forgotPassword(){
+  //   this._router.navigate(['/forgot-password'])
+  // }
+
+  // checkIn(){
+  //   this._router.navigate(['/sign-up'])
+  // }
 
 }
